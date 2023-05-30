@@ -1,14 +1,15 @@
-import './App.css';
-import QuizProvider from './components/QuizProvider';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 import Quiz from './components/Quiz';
 import Score from './components/Score';
+import './App.css';
 
 function App() {
   return (
-    <QuizProvider>
+    <Provider store={store}>
       <Quiz />
       <Score />
-    </QuizProvider>
+    </Provider>
   );
 }
 

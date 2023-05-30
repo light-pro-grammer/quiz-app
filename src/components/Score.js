@@ -1,15 +1,15 @@
-import { useContext } from 'react';
-import QuizContext from './QuizContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../redux/quizSlice';
 
 function Score() {
-  const { score, hasEnded, restartQuiz, questions } = useContext(QuizContext);
+  const dispatch = useDispatch();
+  const score = useSelector((state) => state.score);
+  const hasEnded = useSelector((state) => state.hasEnded);
 
   return hasEnded ? (
     <div className="score-container">
-      <h2>
-        Your score is: {score}/{questions.length}
-      </h2>
-      <button className="restart-button" onClick={restartQuiz}>
+      <h2>Your score is: {score}</h2>
+      <button className="restart-button" onClick={() => dispatch(actions.restartQuiz())}>
         Restart Quiz
       </button>
     </div>

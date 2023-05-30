@@ -1,17 +1,20 @@
-import { useContext } from 'react';
-import QuizContext from './QuizContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../redux/quizSlice';
 
 function Question({ question, choices, answer }) {
-  const { score, setScore, currentQuestionIndex, setCurrentQuestionIndex, hasEnded, setHasEnded, questions } =
-    useContext(QuizContext);
+  const dispatch = useDispatch();
+  const score = useSelector((state) => state.score);
+  const currentQuestionIndex = useSelector((state) => state.currentQuestionIndex);
+  const hasEnded = useSelector((state) => state.hasEnded);
+  const questions = useSelector((state) => state.questions);
 
   const handleGuess = (choice) => {
-    if (answer.includes(choice)) setScore(score + 1);
+    if (answer.includes(choice)) dispatch(actions.setScore(score + 1));
     const nextQuestion = currentQuestionIndex + 1;
     if (nextQuestion < questions.length) {
-      setCurrentQuestionIndex(nextQuestion);
+      dispatch(actions.setCurrentQuestionIndex(nextQuestion));
     } else {
-      setHasEnded(true);
+      dispatch(actions.setHasEnded(true));
     }
   };
 

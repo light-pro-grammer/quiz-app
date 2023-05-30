@@ -1,9 +1,9 @@
-import { useContext } from 'react';
-import QuizContext from './QuizContext';
+import { useSelector } from 'react-redux';
 import Question from './Question';
 
 function Quiz() {
-  const { currentQuestionIndex, questions } = useContext(QuizContext);
+  const currentQuestionIndex = useSelector((state) => state.currentQuestionIndex);
+  const questions = useSelector((state) => state.questions);
   const currentQuestion = questions[currentQuestionIndex];
 
   return currentQuestion ? <Question {...currentQuestion} /> : null;
